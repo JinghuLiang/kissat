@@ -1,12 +1,12 @@
 #if defined(NDEBUG) || !defined(NOPTIONS)
 
-#include "../src/collect.h"
-#include "../src/dense.h"
-#include "../src/flags.h"
-#include "../src/import.h"
-#include "../src/inline.h"
-#include "../src/propsearch.h"
-#include "../src/trail.h"
+#include "../src/core/misc/collect.h"
+#include "../src/core/propagate/dense.h"
+#include "../src/util/misc/flags.h"
+#include "../src/util/io/import.h"
+#include "../src/util/inline/inline.h"
+#include "../src/core/propagate/propsearch.h"
+#include "../src/core/data/trail.h"
 
 #include "test.h"
 

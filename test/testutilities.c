@@ -1,6 +1,6 @@
 #include "test.h"
 
-#include "../src/utilities.h"
+#include "../src/util/misc/utilities.h"
 
 void test_utilities_suffix (void) {
   assert (kissat_has_suffix ("", ""));

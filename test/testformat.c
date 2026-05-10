@@ -1,8 +1,8 @@
 #include <string.h>
 #include <strings.h>
 
-#include "../src/arena.h"
-#include "../src/vector.h"
+#include "../src/util/data-structures/arena.h"
+#include "../src/util/data-structures/vector.h"
 
 #include "test.h"
 

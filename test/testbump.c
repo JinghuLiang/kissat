@@ -1,4 +1,4 @@
-#include "../src/bump.h"
+#include "../src/core/cdcl/bump.h"
 
 #include "test.h"
 

@@ -1,8 +1,8 @@
 #ifndef _tissat_h_INCLUDED
 #define _tissat_h_INCLUDED
 
-#include "../src/inline.h"
-#include "../src/print.h"
+#include "../src/util/inline/inline.h"
+#include "../src/util/io/print.h"
 
 #include "testapplication.h"
 #include "testdivert.h"

@@ -10,3 +10,7 @@ tissat
 *.gcov
 gmon.out
 *~
+site
+venv
+/.venv*
+*log

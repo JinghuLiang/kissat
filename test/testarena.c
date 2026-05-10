@@ -1,6 +1,6 @@
-#include "../src/allocate.h"
-#include "../src/error.h"
-#include "../src/resources.h"
+#include "../src/util/runtime/allocate.h"
+#include "../src/util/runtime/error.h"
+#include "../src/util/runtime/resources.h"
 
 #include "test.h"
 

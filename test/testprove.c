@@ -1,6 +1,6 @@
 #ifndef NPROOFS
 
-#include "../src/file.h"
+#include "../src/util/io/file.h"
 
 #include "test.h"
 #include "testcnfs.h"

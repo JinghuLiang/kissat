@@ -1,4 +1,4 @@
-#include "../src/inlinequeue.h"
+#include "../src/util/inline/inlinequeue.h"
 
 #include "test.h"
 

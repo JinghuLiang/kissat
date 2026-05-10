@@ -1,5 +1,5 @@
-#include "../src/allocate.h"
-#include "../src/fifo.h"
+#include "../src/util/runtime/allocate.h"
+#include "../src/util/data-structures/fifo.h"
 
 #include "test.h"
 

@@ -1,5 +1,5 @@
-#include "../src/allocate.h"
-#include "../src/error.h"
+#include "../src/util/runtime/allocate.h"
+#include "../src/util/runtime/error.h"
 
 #include <string.h>
 

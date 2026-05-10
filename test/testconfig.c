@@ -1,6 +1,6 @@
 #ifndef NOPTIONS
 
-#include "../src/config.h"
+#include "../src/util/misc/config.h"
 
 // Manually copied from '../src/config.c'.
 
