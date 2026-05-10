@@ -1,4 +1,4 @@
-#include "../src/bump.h"
+#include "../src/core/heuristic/heuristic.h"
 
 #include "test.h"
 
@@ -17,30 +17,30 @@ static void test_bump_rescale (void) {
     solver->stable = true;
   }
   tissat_verbose ("forced updating of scores");
-  kissat_update_scores (solver);
-  assert (solver->scinc > 0);
-  tissat_verbose ("initial score increment %g", solver->scinc);
+  kissat_vsids_refill_all_variables (solver);
+  assert (solver->heuristic->vsids_info.scinc > 0);
+  tissat_verbose ("initial score increment %g", solver->heuristic->vsids_info.scinc);
   ACTIVE (0) = ACTIVE (1) = true;
-  heap *scores = SCORES;
+  heap *scores = solver->heuristic->scores;
   unsigned count = 0;
   for (unsigned i = 1; i <= 5; i++) {
     double prev = 0;
-    assert (prev < solver->scinc);
-    while (prev < solver->scinc) {
-      prev = solver->scinc;
+    assert (prev < solver->heuristic->vsids_info.scinc);
+    while (prev < solver->heuristic->vsids_info.scinc) {
+      prev = solver->heuristic->vsids_info.scinc;
       if (i != 3) {
         PUSH_STACK (solver->analyzed, 0);
         if (count++ & 1)
           PUSH_STACK (solver->analyzed, 1);
       }
-      kissat_bump_analyzed (solver);
+      kissat_vsids_bump_analyzed (solver);
       CLEAR_STACK (solver->analyzed);
-      if (prev >= solver->scinc || solver->scinc >= MAX_SCORE * 0.7 ||
-          kissat_get_heap_score (scores, 0) >= MAX_SCORE * 0.7 ||
-          kissat_get_heap_score (scores, 1) >= MAX_SCORE * 0.7)
+      if (prev >= solver->heuristic->vsids_info.scinc || solver->heuristic->vsids_info.scinc >= VSIDS_MAX_SCORE * 0.7 ||
+          kissat_get_heap_score (scores, 0) >= VSIDS_MAX_SCORE * 0.7 ||
+          kissat_get_heap_score (scores, 1) >= VSIDS_MAX_SCORE * 0.7)
         tissat_verbose ("%u.%u: score[0]=%g score[1]=%g scinc=%g", i, count,
                         kissat_get_heap_score (scores, 0),
-                        kissat_get_heap_score (scores, 1), solver->scinc);
+                        kissat_get_heap_score (scores, 1), solver->heuristic->vsids_info.scinc);
     }
   }
   kissat_release (solver);

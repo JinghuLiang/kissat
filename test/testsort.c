@@ -1,5 +1,5 @@
-#include "../src/allocate.h"
-#include "../src/sort.h"
+#include "../src/util/runtime/allocate.h"
+#include "../src/util/misc/sort.h"
 
 #include "test.h"
 

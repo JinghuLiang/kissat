@@ -1,4 +1,4 @@
-#include "../src/keatures.h"
+#include "../src/kitten/keatures.h"
 
 #include <stdbool.h>
 

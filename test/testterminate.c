@@ -1,7 +1,7 @@
 #ifdef COVERAGE
 
-#include "../src/parse.h"
-#include "../src/terminate.h"
+#include "../src/util/io/parse.h"
+#include "../src/util/runtime/terminate.h"
 
 #include "test.h"
 

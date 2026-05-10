@@ -1,4 +1,4 @@
-#include "../src/allocate.h"
+#include "../src/util/runtime/allocate.h"
 
 #include "test.h"
 

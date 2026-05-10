@@ -1,4 +1,4 @@
-#include "../src/reluctant.h"
+#include "../src/core/cdcl/reluctant.h"
 
 #include "test.h"
 

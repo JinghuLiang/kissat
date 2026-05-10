@@ -1,4 +1,4 @@
-#include "../src/random.h"
+#include "../src/util/misc/random.h"
 
 #include "test.h"
 

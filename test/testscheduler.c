@@ -1,5 +1,5 @@
-#include "../src/handle.h"
-#include "../src/print.h"
+#include "../src/util/misc/handle.h"
+#include "../src/util/io/print.h"
 
 #include <stdbool.h>
 #include <stdlib.h>

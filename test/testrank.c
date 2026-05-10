@@ -1,6 +1,6 @@
-#include "../src/allocate.h"
-#include "../src/rank.h"
-#include "../src/stack.h"
+#include "../src/util/runtime/allocate.h"
+#include "../src/util/data-structures/rank.h"
+#include "../src/util/data-structures/stack.h"
 
 #include "test.h"
 

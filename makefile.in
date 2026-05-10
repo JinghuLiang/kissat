@@ -4,14 +4,17 @@ AR=@AR@
 
 VPATH=../src:../test
 
-%.o: %.c ../[st]*/*.h makefile
-	$(CC) -c $<
+# Add vpath for all subdirectories
+vpath %.c ../src/core/cdcl:../src/core/conflict:../src/core/propagate:../src/core/simplify:../src/core/data:../src/core/main:../src/core/misc:../src/core/heuristic
+vpath %.c ../src/util/data-structures:../src/util/inline:../src/util/io:../src/util/runtime:../src/kitten:../src/util/build:../src/util/misc
+
+# Find all source files recursively in subdirectories
+LIBSRT=$(shell find ../src -name '*.c' -type f | sort)
+# Extract just the filename (not the path) - object files are flat
+LIBSRC=$(notdir $(LIBSRT))
+LIBSRC:=$(filter-out main.c $(APPSRC),$(LIBSRC))
 
 APPSRC=application.c handle.c parse.c witness.c
-
-LIBSRT=$(sort $(wildcard ../src/*.c))
-LIBSUB=$(subst ../src/,,$(LIBSRT))
-LIBSRC=$(filter-out main.c $(APPSRC),$(LIBSUB))
 
 TSTSRT=$(sort $(wildcard ../test/*.c))
 TSTSUB=$(subst ../test/,,$(TSTSRT))
@@ -21,11 +24,14 @@ APPOBJ=$(APPSRC:.c=.o)
 LIBOBJ=$(LIBSRC:.c=.o)
 TSTOBJ=$(APPOBJ) $(TSTSRC:.c=.o)
 
-INCLUDES=-I../$(shell pwd|sed -e 's,.*/,,')
+INCLUDES=-I. -I../src -I../src/core/cdcl -I ../src/core/heuristic -I../src/core/conflict -I../src/core/propagate -I../src/core/simplify -I../src/core/data -I../src/core/main -I../src/core/misc -I../src/util/data-structures -I../src/util/inline -I../src/util/io -I../src/util/runtime -I../src/kitten -I../src/util/build -I../src/util/misc
 
 LIBS=libkissat.a
 
-all: @GOALS@
+all: build.h @GOALS@
+
+build.h:
+	../scripts/generate-build-header.sh > $@
 
 test: all tissat
 	./tissat
@@ -40,10 +46,10 @@ clean:
 	cd ../test; rm -f $(REMOVE)
 
 coverage:
-	@gcov -o . -s ../src/*.[ch] 2>&1 | \
+	@gcov -o . $(shell find ../src -name '*.c' -o -name '*.h') 2>&1 | \
 	../scripts/filter-coverage-output.sh
 format:
-	clang-format -i ../*/*.[ch]
+	clang-format -i $(shell find ../src -name '*.c' -o -name '*.h')
 
 kissat: main.o $(APPOBJ) libkissat.a makefile
 	$(LD) -o $@ main.o $(APPOBJ) $(LIBS) -lm
@@ -51,11 +57,8 @@ kissat: main.o $(APPOBJ) libkissat.a makefile
 tissat: test.o $(TSTOBJ) libkissat.a makefile
 	$(LD) -o $@ test.o $(TSTOBJ) $(LIBS) -lm
 
-kitten: kitten.c random.h stack.h makefile
-	$(CC) $(CFLAGS) -DSTAND_ALONE_KITTEN -o $@ ../src/kitten.c
-
-build.h:
-	../scripts/generate-build-header.sh > $@
+kitten: kitten.c ../src/util/misc/random.h ../src/util/data-structures/stack.h makefile
+	$(CC) $(CFLAGS) $(INCLUDES) -DSTAND_ALONE_KITTEN -o $@ ../src/kitten/kitten.c
 
 collect.o: sort.c
 dense.o: sort.c
@@ -65,19 +68,23 @@ proprobe.o: assign.c
 propsearch.o: assign.c
 watch.o: sort.c
 
-build.o: build.c build.h ../[st]*/*.h makefile
+build.o: build.c build.h makefile
 	$(CC) $(INCLUDES) -c $<
 
-testkitten.o: testkitten.c ../[st]*/*.h makefile
-	$(CC)@KITTEN@ -c $<
+testkitten.o: testkitten.c makefile
+	$(CC)@KITTEN@ $(INCLUDES) -c $<
 
-test.o: test.c build.h ../[st]*/*.h makefile
+test.o: test.c build.h makefile
 	$(CC) $(INCLUDES) -c $<
 
-libkissat.a: $(LIBOBJ) makefile
+libkissat.a: $(LIBOBJ) build.h makefile
 	$(AR) rc $@ $(LIBOBJ)
 
 libkissat.so: $(LIBOBJ) makefile
 	$(LD) -shared -o $@ $(LIBOBJ)
+
+# Generic pattern rule for object files (after explicit rules)
+%.o: %.c build.h makefile
+	$(CC) $(INCLUDES) -c $<
 
 .PHONY: all clean coverage indent test build.h

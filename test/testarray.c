@@ -1,6 +1,6 @@
 #include "test.h"
 
-#include "../src/array.h"
+#include "../src/util/data-structures/array.h"
 
 typedef struct pair pair;
 

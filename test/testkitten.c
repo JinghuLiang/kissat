@@ -2,7 +2,7 @@
 
 #ifdef KITTEN
 
-#include "../src/file.h"
+#include "../src/util/io/file.h"
 
 #include "testcnfs.h"
 
@@ -42,7 +42,7 @@ static void schedule_cores_kitten (const char *kitten) {
 
 #endif
 
-#include "../src/kitten.h"
+#include "../src/kitten/kitten.h"
 
 static void test_kitten_tie_and_shirt (void) {
   DECLARE_AND_INIT_SOLVER (solver);

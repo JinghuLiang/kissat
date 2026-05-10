@@ -1,5 +1,5 @@
-#include "../src/heap.h"
-#include "../src/inlineheap.h"
+#include "../src/util/data-structures/heap.h"
+#include "../src/util/inline/inlineheap.h"
 
 #include "test.h"
 

@@ -1,6 +1,6 @@
-#include "../src/import.h"
-#include "../src/resize.h"
-#include "../src/resources.h"
+#include "../src/util/io/import.h"
+#include "../src/util/data-structures/resize.h"
+#include "../src/util/runtime/resources.h"
 
 #include "test.h"
 

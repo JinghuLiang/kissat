@@ -1,5 +1,5 @@
-#include "../src/colors.h"
-#include "../src/handle.h"
+#include "../src/util/misc/colors.h"
+#include "../src/util/misc/handle.h"
 
 #include <signal.h>
 #include <stdarg.h>
